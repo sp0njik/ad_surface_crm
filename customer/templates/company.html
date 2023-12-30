@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/company.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>{{company.name}}</h1>
+<p>Номер телефона: {{company.phone}}</p>
+<p>Юридический адрес: {{company.legal_address}}</p>
+<p>Фактический адрес: {{company.actual_address}}</p>
+<div class="row">
+    <span>Поверхность</span>
+    <span>Дата начала размещения</span>
+    <span>Дата окночания размещения</span>
+    <span>Срок размещения</span>
+    <span>Счет</span>
+    <span>Акт</span>
+</div>
+{% for placement in company_placements %}
+<div class="row">
+    <span>{{placement.surface.name}}</span>
+    <span>{{placement.start_at|date:"d.m.Y"}}</span>
+    <span>{{placement.finish_at|date:"d.m.Y"}}</span>
+    <span>{{placement.duration.days}}</span>
+    {% if placement.invoice %}
+    <span><a href="{{placement.invoice.url}}" target="_blank" download="Счет">Счет</a></span>
+    {% else %}
+    <span>-</span>
+    {% endif %}
+    {% if placement.reconciliation %}
+    <span><a href="{{placement.reconciliation.url}}" target="_blank" download="Акт">Акт</a></span>
+    {% else %}
+    <span>-</span>
+    {% endif %}
+</div>
+{% endfor%}
+{% endblock %}

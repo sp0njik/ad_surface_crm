@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for client in clients_list %}
+<div class="btn btn-success btn-lg">
+    <a href="/customer/company/{{client.id}}/"> {{client.name}} </a>
+</div>
+{% endfor %}
+{% endblock %}

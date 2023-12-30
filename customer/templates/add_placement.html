@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="">
+    <select>
+        {% for company in companies %}
+        <option value="{{company.id}}">{{company.name}}</option>
+        {% endfor %}
+    </select>
+</form>
+</body>
+</html>
