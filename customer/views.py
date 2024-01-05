@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Prefetch
 from customer.models import Company, Placement
 
 from ad_surface.views import get_free_surfaces
@@ -21,6 +21,21 @@ def get_profile(request):
 
 
 def get_company_page(request, company_id):
-    company: Company = Company.objects.get(id=company_id)
-    company_placements: QuerySet[Placement] = Placement.objects.filter(company=company)
-    return render(request, 'company.html', {'company': company, 'company_placements': company_placements})
+    company: Company = Company.objects\
+                                .prefetch_related(
+                                    Prefetch(
+                                        'placements_data', 
+                                        queryset=Placement.objects\
+                                                            .prefetch_related(Prefetch('surface', queryset=Surface.objects.only('name').all()))\
+                                                            .only('start_at', 'duration', 'reconciliation', 'invoice', 'surface', 'company')\
+                                                            .all()))\
+                                .only('name', 'phone', 'legal_address', 'actual_address')\
+                                .get(id=company_id)
+    # company_placements: QuerySet[Placement] = Placement.objects.filter(company=company)
+    return render(request, 'company.html', {'company': company})
+
+
+
+def get_placement_page(request, placement_id):
+    placement: Placement = Placement.objects.get(id=placement_id)
+    return render(request, 'placement.html', {'placement': placement})
