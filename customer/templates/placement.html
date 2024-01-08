@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/company.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<div class = 'wrapper'>
+    
+    <div class='info'>
+        <span class="name">Название поверхности: </span>
+        <span class="value">{{placement.surface.name}}</span>
+    </div>
+    <div class='info'>
+        <span>Дата начала размещения: </span>
+        <span>{{placement.start_at|date:"d.m.Y"}}</span>
+    </div>
+    <div class='info'>
+        <span>Акт: </span>
+        <span><a href='{{placement.reconciliation.url}}' download='download'>Акт</a></span>
+    </div>
+    
+</div>
+{% endblock %}

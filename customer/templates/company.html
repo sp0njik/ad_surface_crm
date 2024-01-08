@@ -17,8 +17,9 @@
     <span>Срок размещения</span>
     <span>Счет</span>
     <span>Акт</span>
+    <span>Подробнее</span>
 </div>
-{% for placement in company_placements %}
+{% for placement in company.placements_data.all %}
 <div class="row">
     <span>{{placement.surface.name}}</span>
     <span>{{placement.start_at|date:"d.m.Y"}}</span>
@@ -34,6 +35,7 @@
     {% else %}
     <span>-</span>
     {% endif %}
+    <span><a href="/customer/placement/{{placement.id}}/">Подробнее</a></span>
 </div>
 {% endfor%}
 {% endblock %}

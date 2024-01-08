@@ -23,4 +23,7 @@ class SurfaceImage(models.Model):
     surface: Surface = models.ForeignKey(Surface, on_delete=models.CASCADE)
 
     def square(self) -> int:
+        """
+        Calculate the area of a rectangle.
+        """
         return self.width * self.height

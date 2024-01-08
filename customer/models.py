@@ -42,8 +42,18 @@ class Placement(models.Model):
                                                validators=[MinValueValidator(timedelta(days=1))])
     invoice: File = models.FileField(null=True, blank=True, upload_to='files')
     reconciliation: File = models.FileField(null=True, blank=True, upload_to='files')
+<<<<<<< HEAD
     
+=======
+    contract_number: str = models.CharField(max_length=255, null=True, blank=True, verbose_name='номер договора')
+    installation_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость монтажа')
+    dismantling_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость демонтажа')
+    production_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость производства')
+    placement_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость размещения')
+    accruals: int = models.IntegerField(null=True, blank=True, verbose_name='процентные акccruals')
+>>>>>>> 2053fbc211def87df4bd0f1a9edf774dc7443d8e
 
+    
     def finish_at(self) -> datetime:
         return self.start_at + self.duration
 
