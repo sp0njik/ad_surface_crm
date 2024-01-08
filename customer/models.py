@@ -10,9 +10,18 @@ from ad_surface.models import Surface
 
 
 class Company(AbstractUser):
-    '''
-        Модель
-    '''
+    """
+    A model representing a company.
+    
+    Fields:
+    - name: The name of the company.
+    - phone: The phone number of the company.
+    - legal_address: The legal address of the company.
+    - actual_address: The actual address of the company.
+    - is_agency: Indicates if the company is an agency.
+    - agency: The agency associated with the company.
+    - placements: The list of surfaces associated with the company's placements.
+    """
     name: str = models.CharField(verbose_name='название', max_length=100)
     phone: str = models.CharField(verbose_name='номер телефона', max_length=10)
     legal_address: str = models.CharField(verbose_name='юридический адрес', max_length=100)
@@ -33,6 +42,7 @@ class Placement(models.Model):
                                                validators=[MinValueValidator(timedelta(days=1))])
     invoice: File = models.FileField(null=True, blank=True, upload_to='files')
     reconciliation: File = models.FileField(null=True, blank=True, upload_to='files')
+    
 
     def finish_at(self) -> datetime:
         return self.start_at + self.duration

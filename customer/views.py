@@ -14,6 +14,18 @@ def add_placement(request):
 
 
 def get_profile(request):
+    """
+    Retrieves the user's profile.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered profile HTML page.
+
+    Raises:
+        None
+    """
     if not request.user.is_authenticated:
         return redirect('/login/')
     clients_list: QuerySet[Company] = Company.objects.all()
