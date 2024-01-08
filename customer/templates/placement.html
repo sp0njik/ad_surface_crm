@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/placement.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/company.css' %}">
 {% endblock %}
 
 
@@ -10,8 +10,8 @@
 <div class = 'wrapper'>
     
     <div class='info'>
-        <span>Название поверхности: </span>
-        <span>{{placement.surface.name}}</span>
+        <span class="name">Название поверхности: </span>
+        <span class="value">{{placement.surface.name}}</span>
     </div>
     <div class='info'>
         <span>Дата начала размещения: </span>
