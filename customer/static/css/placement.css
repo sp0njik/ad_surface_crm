@@ -3,6 +3,7 @@
     flex-direction: column;
 } */
 
-.info.name{
+.info .name{
     font-weight: bold;
+    margin-right: 10px;
 }

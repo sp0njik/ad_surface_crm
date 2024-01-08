@@ -47,7 +47,7 @@ class Placement(models.Model):
     dismantling_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость демонтажа')
     production_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость производства')
     placement_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость размещения')
-    accruals: int = models.IntegerField(null=True, blank=True, verbose_name='процентные акccruals')
+    accruals: int = models.IntegerField(null=True, blank=True, verbose_name='начисления')
 
     
     def finish_at(self) -> datetime:
