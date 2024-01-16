@@ -2,15 +2,24 @@
 {% load static %}
 
 {% block style %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/company.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/company.css' %}" />
 {% endblock %}
 
 {% block content %}
-<h1>{{company.name}}</h1>
-<p>Номер телефона: {{company.phone}}</p>
-<p>Юридический адрес: {{company.legal_address}}</p>
-<p>Фактический адрес: {{company.actual_address}}</p>
-<div class="row">
+  <h1>{{ company.name }}</h1>
+  <form method="POST" action=".">
+    <p>
+      Номер телефона:<input type="text" name="phone" value="{{ company.phone }}" />
+    </p>
+    <p>
+      Юридический адрес:<input type="text" name="legal_address" value="{{ company.legal_address }}" />
+    </p>
+    <p>
+      Фактический адрес:<input type="text" name="actual_address" value="{{ company.actual_address }}" />
+    </p>
+    <input type="submit" value="Сохранить">
+  </form>
+  <div class="row">
     <span>Поверхность</span>
     <span>Дата начала размещения</span>
     <span>Дата окночания размещения</span>
@@ -18,24 +27,24 @@
     <span>Счет</span>
     <span>Акт</span>
     <span>Подробнее</span>
-</div>
-{% for placement in company.placements_data.all %}
-<div class="row">
-    <span>{{placement.surface.name}}</span>
-    <span>{{placement.start_at|date:"d.m.Y"}}</span>
-    <span>{{placement.finish_at|date:"d.m.Y"}}</span>
-    <span>{{placement.duration.days}}</span>
-    {% if placement.invoice %}
-    <span><a href="{{placement.invoice.url}}" target="_blank" download="Счет">Счет</a></span>
-    {% else %}
-    <span>-</span>
-    {% endif %}
-    {% if placement.reconciliation %}
-    <span><a href="{{placement.reconciliation.url}}" target="_blank" download="Акт">Акт</a></span>
-    {% else %}
-    <span>-</span>
-    {% endif %}
-    <span><a href="/customer/placement/{{placement.id}}/">Подробнее</a></span>
-</div>
-{% endfor%}
+  </div>
+  {% for placement in company.placements_data.all %}
+    <div class="row">
+      <span>{{ placement.surface.name }}</span>
+      <span>{{ placement.start_at|date:'d.m.Y' }}</span>
+      <span>{{ placement.finish_at|date:'d.m.Y' }}</span>
+      <span>{{ placement.duration.days }}</span>
+      {% if placement.invoice %}
+        <span><a href="{{ placement.invoice.url }}" target="_blank" download="Счет">Счет</a></span>
+      {% else %}
+        <span>-</span>
+      {% endif %}
+      {% if placement.reconciliation %}
+        <span><a href="{{ placement.reconciliation.url }}" target="_blank" download="Акт">Акт</a></span>
+      {% else %}
+        <span>-</span>
+      {% endif %}
+      <span><a href="/customer/placement/{{ placement.id }}/">Подробнее</a></span>
+    </div>
+  {% endfor %}
 {% endblock %}

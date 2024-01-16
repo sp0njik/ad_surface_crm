@@ -3,7 +3,22 @@
     flex-direction: column;
 } */
 
-.info .name{
+.name {
     font-weight: bold;
-    margin-right: 10px;
+}
+
+.btn-save {
+    padding: 5px 10px;
+    background-color: rgb(225, 84, 84);
+    border: none;
+    margin-top: 25px;
+    border-radius: 5px;
+    font-style: bold;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    transition: 0.2s;
 }
