@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import QuerySet, Prefetch
-from customer.forms import CompanyForm
+from customer.forms import CompanyForm, PlacementForm
 from customer.models import Company, Placement
 from django.core.files.storage import FileSystemStorage
 
@@ -99,8 +99,5 @@ def get_placement_page(request, placement_id):
         filename = storage.save(f"files/{recconiliation.name}", recconiliation)
         placement.reconciliation = filename
         placement.save()
-    return render(
-        request,
-        "placement.html",
-        {"placement": placement, "surface_list": surface_list},
-    )
+        form = PlacementForm()
+    return render(request, "placement.html", {"placement": placement, "surface_list": surface_list, "form": form})

@@ -10,7 +10,7 @@
 <div class = 'wrapper'>
     <form method="POST" action="/customer/placement/{{placement.id}}/" enctype="multipart/form-data">
         {% csrf_token %} 
-        <div class='info'>
+        {% comment %} <div class='info'>
             <span class="name">Название поверхности: </span>
             <span class="value">
                 <select name="surface" >
@@ -34,7 +34,8 @@
             <span>-
             {% endif %}
             <input type="file" name="reconciliation"></span>
-        </div>
+        </div> {% endcomment %}
+        {{ form.as_div }}
         <input class="btn-save" type="submit" value="Сохранить"/>
     </form>
 </div>
