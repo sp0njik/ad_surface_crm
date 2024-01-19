@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db.models import QuerySet, Prefetch
+from customer.forms import CompanyForm
 from customer.models import Company, Placement
 from django.core.files.storage import FileSystemStorage
 
@@ -78,7 +79,8 @@ def get_company_page(request, company_id):
         company.actual_address = request.POST.get("actual_address")
 
         company.save()
-    return render(request, "company.html", {"company": company})
+    form = CompanyForm()
+    return render(request, "company.html", {"company": company, "form": form})
 
 
 def get_placement_page(request, placement_id):

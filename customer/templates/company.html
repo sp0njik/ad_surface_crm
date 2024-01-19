@@ -8,7 +8,8 @@
 {% block content %}
   <h1>{{ company.name }}</h1>
   <form method="POST" action=".">
-    <p>
+    {% csrf_token %}
+    {% comment %} <p>
       Номер телефона:<input type="text" name="phone" value="{{ company.phone }}" />
     </p>
     <p>
@@ -16,7 +17,8 @@
     </p>
     <p>
       Фактический адрес:<input type="text" name="actual_address" value="{{ company.actual_address }}" />
-    </p>
+    </p> {% endcomment %}
+    {{ form.as_p }}
     <input type="submit" value="Сохранить">
   </form>
   <div class="row">
