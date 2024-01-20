@@ -99,5 +99,5 @@ def get_placement_page(request, placement_id):
         filename = storage.save(f"files/{recconiliation.name}", recconiliation)
         placement.reconciliation = filename
         placement.save()
-        form = PlacementForm()
+    form = PlacementForm()
     return render(request, "placement.html", {"placement": placement, "surface_list": surface_list, "form": form})

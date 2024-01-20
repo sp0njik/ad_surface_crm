@@ -12,7 +12,7 @@ from ad_surface.models import Surface
 class Company(AbstractUser):
     """
     A model representing a company.
-    
+
     Fields:
     - name: The name of the company.
     - phone: The phone number of the company.
@@ -22,34 +22,73 @@ class Company(AbstractUser):
     - agency: The agency associated with the company.
     - placements: The list of surfaces associated with the company's placements.
     """
-    name: str = models.CharField(verbose_name='название', max_length=100)
-    phone: str = models.CharField(verbose_name='номер телефона', max_length=10)
-    legal_address: str = models.CharField(verbose_name='юридический адрес', max_length=100)
-    actual_address: str = models.CharField(verbose_name='фактический адрес', max_length=100)
-    is_agency: bool = models.BooleanField(verbose_name='агенство', default=False)
-    agency: 'Company' = models.ForeignKey('self', on_delete=models.PROTECT, verbose_name='агенство', null=True,
-                                          blank=True)
-    placements: list[Surface] = models.ManyToManyField(Surface, through='Placement', verbose_name='размещение')
+
+    name: str = models.CharField(verbose_name="название", max_length=100)
+    phone: str = models.CharField(verbose_name="номер телефона", max_length=10)
+    legal_address: str = models.CharField(
+        verbose_name="юридический адрес", max_length=100
+    )
+    actual_address: str = models.CharField(
+        verbose_name="фактический адрес", max_length=100
+    )
+    inn = models.CharField(max_length=12, verbose_name="ИНН")
+    kpp = models.CharField(max_length=9, verbose_name="КПП")
+    ogrn = models.CharField(max_length=13, verbose_name="ОГРН")
+    ogrnip = models.CharField(max_length=13, verbose_name="ОГРНИП")
+    checking_account = models.CharField(max_length=20, verbose_name="Расчётный счёт")
+    correspondent_account = models.CharField(
+        max_length=20, verbose_name="Корреспондентский счёт"
+    )
+    bik = models.CharField(max_length=9, verbose_name="БИК")
+    bank_name = models.CharField(max_length=100, verbose_name="Название банка")
+    is_agency: bool = models.BooleanField(verbose_name="агенство", default=False)
+    agency: "Company" = models.ForeignKey(
+        "self", on_delete=models.PROTECT, verbose_name="агенство", null=True, blank=True
+    )
+    placements: list[Surface] = models.ManyToManyField(
+        Surface, through="Placement", verbose_name="размещение"
+    )
 
 
 class Placement(models.Model):
-    surface: Surface = models.ForeignKey(Surface, on_delete=models.PROTECT, verbose_name='поверхность',
-                                         related_name='orders')
-    company: Company = models.ForeignKey(Company, on_delete=models.PROTECT, verbose_name='организация',
-                                         related_name='placements_data')
-    start_at: datetime = models.DateField(verbose_name='начало размещения')
-    duration: timedelta = models.DurationField(verbose_name='продолжительность размещения',
-                                               validators=[MinValueValidator(timedelta(days=1))])
-    invoice: File = models.FileField(null=True, blank=True, upload_to='files')
-    reconciliation: File = models.FileField(null=True, blank=True, upload_to='files')
-    contract_number: str = models.CharField(max_length=255, null=True, blank=True, verbose_name='номер договора')
-    installation_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость монтажа')
-    dismantling_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость демонтажа')
-    production_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость производства')
-    placement_cost: int = models.IntegerField(null=True, blank=True, verbose_name='стоимость размещения')
-    accruals: int = models.IntegerField(null=True, blank=True, verbose_name='начисления')
+    surface: Surface = models.ForeignKey(
+        Surface,
+        on_delete=models.PROTECT,
+        verbose_name="поверхность",
+        related_name="orders",
+    )
+    company: Company = models.ForeignKey(
+        Company,
+        on_delete=models.PROTECT,
+        verbose_name="организация",
+        related_name="placements_data",
+    )
+    start_at: datetime = models.DateField(verbose_name="начало размещения")
+    duration: timedelta = models.DurationField(
+        verbose_name="продолжительность размещения",
+        validators=[MinValueValidator(timedelta(days=1))],
+    )
+    invoice: File = models.FileField(null=True, blank=True, upload_to="files")
+    reconciliation: File = models.FileField(null=True, blank=True, upload_to="files")
+    contract_number: str = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name="номер договора"
+    )
+    installation_cost: int = models.IntegerField(
+        null=True, blank=True, verbose_name="стоимость монтажа"
+    )
+    dismantling_cost: int = models.IntegerField(
+        null=True, blank=True, verbose_name="стоимость демонтажа"
+    )
+    production_cost: int = models.IntegerField(
+        null=True, blank=True, verbose_name="стоимость производства"
+    )
+    placement_cost: int = models.IntegerField(
+        null=True, blank=True, verbose_name="стоимость размещения"
+    )
+    accruals: int = models.IntegerField(
+        null=True, blank=True, verbose_name="начисления"
+    )
 
-    
     def finish_at(self) -> datetime:
         return self.start_at + self.duration
 
@@ -58,5 +97,5 @@ class Placement(models.Model):
 
 
 class PlacementFile(models.Model):
-    file: File = models.FileField(upload_to='files')
+    file: File = models.FileField(upload_to="files")
     placement: Placement = models.ForeignKey(Placement, on_delete=models.CASCADE)
