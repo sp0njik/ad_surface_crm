@@ -9,7 +9,28 @@ class CompanyAdmin(UserAdmin):
     model: Company = Company
     # fieldsets = UserAdmin.fieldsets + ((None, {'fields': [field.name for field in Company._meta.fields][1:]}),)
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ['name', 'phone', 'legal_address', 'actual_address', 'is_agency']}),)
+        (
+            None,
+            {
+                "fields": [
+                    "phone",
+                    "legal_address",
+                    "actual_address",
+                    "inn",
+                    "kpp",
+                    "ogrn",
+                    "ogrnip",
+                    "checking_account",
+                    "correspondent_account",
+                    "bik",
+                    "bank_name",
+                    "bank_address",
+                    "is_agency",
+                    
+                ]
+            },
+        ),
+    )
 
 
 class PlacementFileInlineAdmin(admin.TabularInline):
@@ -19,8 +40,8 @@ class PlacementFileInlineAdmin(admin.TabularInline):
 
 class PlacementAdmin(admin.ModelAdmin):
     inlines = [PlacementFileInlineAdmin]
-    list_display = ['id', 'company', 'surface', 'start_at_date', 'finish_at_date']
-    list_filter = ['company', 'surface']
+    list_display = ["id", "company", "surface", "start_at_date", "finish_at_date"]
+    list_filter = ["company", "surface"]
 
     def start_at_date(self, placement):
         return placement.start_at.strftime("%d.%m.%Y")

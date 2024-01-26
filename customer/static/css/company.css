@@ -9,3 +9,7 @@
     text-align: center;
     display: inline-block;
 }
+
+.main-field {
+    border: 2px solid red;
+}

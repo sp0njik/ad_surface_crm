@@ -72,14 +72,18 @@ def get_company_page(request, company_id):
         .get(id=company_id)
     )
     if request.method == "POST":
-        company.phone = request.POST.get("phone")
+        form = CompanyForm(request.POST)
+        # company.phone = request.POST.get("phone")
 
-        company.legal_address = request.POST.get("legal_address")
+        # company.legal_address = request.POST.get("legal_address")
 
-        company.actual_address = request.POST.get("actual_address")
+        # company.actual_address = request.POST.get("actual_address")
 
-        company.save()
-    form = CompanyForm()
+        # company.save()
+        if form.is_valid():
+            company = form.save()
+    else:
+        form = CompanyForm(instance=company)
     return render(request, "company.html", {"company": company, "form": form})
 
 

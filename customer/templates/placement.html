@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class = 'wrapper'>
-    <form method="POST" action="/customer/placement/{{placement.id}}/" enctype="multipart/form-data">
+    <form method="POST" action="/customer/placement/{{placement.id}}/" enctype="multipart/form-data" class="placement_form">
         {% csrf_token %} 
         {% comment %} <div class='info'>
             <span class="name">Название поверхности: </span>
@@ -35,7 +35,7 @@
             {% endif %}
             <input type="file" name="reconciliation"></span>
         </div> {% endcomment %}
-        {{ form.as_div }}
+        {{ form.as_p }}
         <input class="btn-save" type="submit" value="Сохранить"/>
     </form>
 </div>

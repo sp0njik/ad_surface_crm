@@ -31,7 +31,7 @@ class Company(AbstractUser):
     actual_address: str = models.CharField(
         verbose_name="фактический адрес", max_length=100
     )
-    inn = models.CharField(max_length=12, verbose_name="ИНН")
+    inn: int = models.CharField(max_length=12, verbose_name="ИНН")
     kpp = models.CharField(max_length=9, verbose_name="КПП")
     ogrn = models.CharField(max_length=13, verbose_name="ОГРН")
     ogrnip = models.CharField(max_length=13, verbose_name="ОГРНИП")
@@ -41,6 +41,7 @@ class Company(AbstractUser):
     )
     bik = models.CharField(max_length=9, verbose_name="БИК")
     bank_name = models.CharField(max_length=100, verbose_name="Название банка")
+    bank_address:str = models.CharField(max_length=100, verbose_name="Адрес банка")
     is_agency: bool = models.BooleanField(verbose_name="агенство", default=False)
     agency: "Company" = models.ForeignKey(
         "self", on_delete=models.PROTECT, verbose_name="агенство", null=True, blank=True
