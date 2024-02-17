@@ -22,7 +22,7 @@ def get_free_surfaces():
     """
     not_finished_placements = Placement.objects.annotate(
         finish_at =ExpressionWrapper(F('start_at') + F('duration'), output_field=DateField())).filter(
-        finish_at__gt=timezone.now().date(), surface=OuterRef('id'))
+        finish_at__gt=timezone.now().date(), surface=OuterRef('id')) # OuterRef получить id из внешнего запроса
     free_surfaces: list[Surface] = Surface.objects.only('name').filter(~Exists(not_finished_placements),
                                                                        is_active=True)
     return free_surfaces
