@@ -17,13 +17,13 @@ class Surface(models.Model):
     def __str__(self):
         return self.name
 
-
-class SurfaceImage(models.Model):
-    image: ImageFile = models.ImageField(upload_to='surfaces', verbose_name='изображение')
-    surface: Surface = models.ForeignKey(Surface, on_delete=models.CASCADE)
-
-    def square(self) -> int:
+    def get_area(self) -> int:
         """
         Calculate the area of a rectangle.
         """
         return self.width * self.height
+
+
+class SurfaceImage(models.Model):
+    image: ImageFile = models.ImageField(upload_to='surfaces', verbose_name='изображение')
+    surface: Surface = models.ForeignKey(Surface, on_delete=models.CASCADE)

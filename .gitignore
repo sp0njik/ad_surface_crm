@@ -1,4 +1,3 @@
-.vscode
 .idea/
 venv/
 **/__pycache__/
@@ -6,3 +5,4 @@ logs/
 *.sqlite3
 **/migrations/
 !**/migrations/__init__.py
+!**/logs/__init__.py
