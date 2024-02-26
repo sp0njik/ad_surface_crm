@@ -68,7 +68,7 @@ def get_company_page(request, company_id):
                 .all(),
             )
         )
-        .only("name", "phone", "legal_address", "actual_address")
+        .defer("agency")
         .get(id=company_id)
     )
     if request.method == "POST":

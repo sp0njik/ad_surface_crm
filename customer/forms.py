@@ -35,14 +35,12 @@ class CompanyForm(forms.ModelForm):
             "inn",
             "kpp",
             "ogrn",
-            "ogrnip",
             "checking_account",
             "correspondent_account",
             "bik",
             "bank_name",
             "bank_address",
             "is_agency",
-            "ditector_name",
         ]
 
 

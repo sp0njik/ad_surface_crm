@@ -34,7 +34,6 @@ class Company(AbstractUser):
     inn: int = models.CharField(max_length=12, verbose_name="ИНН")
     kpp = models.CharField(max_length=9, verbose_name="КПП")
     ogrn = models.CharField(max_length=13, verbose_name="ОГРН")
-    ogrnip = models.CharField(max_length=13, verbose_name="ОГРНИП")
     checking_account = models.CharField(max_length=20, verbose_name="Расчётный счёт")
     correspondent_account = models.CharField(
         max_length=20, verbose_name="Корреспондентский счёт"
