@@ -1,7 +1,7 @@
 from datetime import datetime
 from datetime import timedelta
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, User
 from django.db import models
 from django.core.files.base import File
 from django.core.validators import MinValueValidator
@@ -9,7 +9,7 @@ from django.core.validators import MinValueValidator
 from ad_surface.models import Surface
 
 
-class Company(AbstractUser):
+class Company(models.Model):
     """
     A model representing a company.
 
@@ -22,7 +22,7 @@ class Company(AbstractUser):
     - agency: The agency associated with the company.
     - placements: The list of surfaces associated with the company's placements.
     """
-
+    user = models.OneToOneField(User, on_delete=models.PROTECT, null=True, blank=True)
     name: str = models.CharField(verbose_name="название", max_length=100)
     phone: str = models.CharField(verbose_name="номер телефона", max_length=10)
     legal_address: str = models.CharField(
@@ -40,7 +40,7 @@ class Company(AbstractUser):
     )
     bik = models.CharField(max_length=9, verbose_name="БИК")
     bank_name = models.CharField(max_length=100, verbose_name="Название банка")
-    bank_address:str = models.CharField(max_length=100, verbose_name="Адрес банка")
+    bank_address: str = models.CharField(max_length=100, verbose_name="Адрес банка")
     is_agency: bool = models.BooleanField(verbose_name="агенство", default=False)
     agency: "Company" = models.ForeignKey(
         "self", on_delete=models.PROTECT, verbose_name="агенство", null=True, blank=True

@@ -5,32 +5,32 @@ from ad_surface.models import Surface
 from customer.models import Company, Placement, PlacementFile
 
 
-class CompanyAdmin(UserAdmin):
-    model: Company = Company
-    # fieldsets = UserAdmin.fieldsets + ((None, {'fields': [field.name for field in Company._meta.fields][1:]}),)
-    fieldsets = UserAdmin.fieldsets + (
-        (
-            None,
-            {
-                "fields": [
-                    "phone",
-                    "legal_address",
-                    "actual_address",
-                    "inn",
-                    "kpp",
-                    "ogrn",
-                    "ogrnip",
-                    "checking_account",
-                    "correspondent_account",
-                    "bik",
-                    "bank_name",
-                    "bank_address",
-                    "is_agency",
-                    
-                ]
-            },
-        ),
-    )
+# class CompanyAdmin(UserAdmin):
+#     model: Company = Company
+#     # fieldsets = UserAdmin.fieldsets + ((None, {'fields': [field.name for field in Company._meta.fields][1:]}),)
+#     fieldsets = UserAdmin.fieldsets + (
+#         (
+#             None,
+#             {
+#                 "fields": [
+#                     "phone",
+#                     "legal_address",
+#                     "actual_address",
+#                     "inn",
+#                     "kpp",
+#                     "ogrn",
+#                     "ogrnip",
+#                     "checking_account",
+#                     "correspondent_account",
+#                     "bik",
+#                     "bank_name",
+#                     "bank_address",
+#                     "is_agency",
+#
+#                 ]
+#             },
+#         ),
+#     )
 
 
 class PlacementFileInlineAdmin(admin.TabularInline):
@@ -51,5 +51,5 @@ class PlacementAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Surface)
-admin.site.register(Company, CompanyAdmin)
+admin.site.register(Company)
 admin.site.register(Placement, PlacementAdmin)
